@@ -1,6 +1,6 @@
 "use strict";
 
-const iosCorrectedInnerHeight = require("ios-inner-height");
+const iosCorrectedInnerHeight = require("@formfunfunction/inner-height");
 const router = require("../router.js");
 const views = require("../util/views.js");
 const uri = require("../util/uri.js");
@@ -29,6 +29,9 @@ class PostMainView {
         const topNavigationNode =
             document.body.querySelector("#top-navigation");
 
+        const contentNode =
+            document.querySelector(".post-view > .content");
+
         this._postContentControl = new PostContentControl(
             postContainerNode,
             ctx.post,
@@ -36,14 +39,13 @@ class PostMainView {
                 const margin = sidebarNode.getBoundingClientRect().left;
 
                 return [
-                    window.innerWidth -
-                        postContainerNode.getBoundingClientRect().left -
-                        margin,
+                    postContainerNode.getBoundingClientRect().width,
                     iosCorrectedInnerHeight() -
                         topNavigationNode.getBoundingClientRect().height -
                         margin * 2,
                 ];
-            }
+            },
+            contentNode
         );
 
         this._postNotesOverlayControl = new PostNotesOverlayControl(
